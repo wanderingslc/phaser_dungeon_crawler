@@ -41,6 +41,24 @@ export default class Game extends Phaser.Scene {
     lizards.get(256, 128, "lizard");
     this.physics.add.collider(this.faune, wallsLayer);
     this.physics.add.collider(lizards, wallsLayer);
+    this.physics.add.collider(
+      lizards,
+      this.faune,
+      this.handlePlayerLizardCollision,
+      undefined,
+      this
+    );
+  }
+
+  private handlePlayerLizardCollision(
+    obj1: Phaser.GameObjects.GameObject,
+    obj2: Phaser.GameObjects.GameObject
+  ) {
+    const lizard = obj2 as Lizard;
+    const dx = this.faune.x - lizard.x;
+    const dy = this.faune.y - lizard.y;
+    const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(200);
+    this.faune.setVelocity(dir.x, dir.y);
   }
   update(t: number, dt: number) {
     if (!this.cursors || !this.faune) {
