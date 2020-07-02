@@ -7,7 +7,10 @@ export default class Chest extends Phaser.Physics.Arcade.Sprite {
     y: number,
     texture: string,
     frame?: string | number
-  );
+  ) {
+    super(scene, x, y, texture, frame);
+    this.play('chest-closed');
+  };
   open() {
     if (this.anims.currentAnim.key !== "chest-closed") {
       return 0;

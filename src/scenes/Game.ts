@@ -86,7 +86,15 @@ export default class Game extends Phaser.Scene {
       undefined,
       this
     );
+    this.physics.add.collider(
+        this.faune,
+        chests,
+        this.handlePlayerChestCollision,
+        undefined,
+        this
+    );
   }
+
 
   private handleKnifeWallCollision(
     obj1: Phaser.GameObjects.GameObject,

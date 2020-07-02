@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import Chest from "../items/Chest";
 
-// import { sceneEvents } from "../events/EventsCenter";
+import { sceneEvents } from "../events/EventCenter";
 
 declare global {
   namespace Phaser.GameObjects {
@@ -30,7 +30,7 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite {
   private _coins = 0;
 
   private knives?: Phaser.Physics.Arcade.Group;
-  // private activeChest?: Chest;
+  private activeChest?: Chest;
 
   get health() {
     return this._health;
@@ -164,14 +164,15 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space!)) {
-      // if (this.activeChest) {
-      //   const coins = this.activeChest.open();
-      //   this._coins += coins;
+      if (this.activeChest) {
+        debugger;
+        const coins = this.activeChest.open();
+        this._coins += coins;
 
-      // sceneEvents.emit("player-coins-changed", this._coins);
-      // } else {
+      sceneEvents.emit("player-coins-changed", this._coins);
+      } else {
       this.throwKnife();
-      // }
+      }
       return;
     }
 
@@ -207,9 +208,9 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite {
       this.setVelocity(0, 0);
     }
 
-    // if (leftDown || rightDown || upDown || downDown) {
-    //   this.activeChest = undefined;
-    // }
+    if (leftDown || rightDown || upDown || downDown) {
+      this.activeChest = undefined;
+    }
   }
 }
 

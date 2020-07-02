@@ -7,7 +7,7 @@ const createChestAnims = (anims: Phaser.Animations.AnimationManager) => {
       start: 0,
       end: 2,
       prefix: "chest_empty_open_anim_f",
-      suffix: "png",
+      suffix: ".png",
     }),
     frameRate: 5,
   });
